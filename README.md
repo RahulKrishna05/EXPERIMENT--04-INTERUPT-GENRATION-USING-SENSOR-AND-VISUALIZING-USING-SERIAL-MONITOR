@@ -1,8 +1,7 @@
-###  DATE: 
-
-###  NAME: 
-###  ROLL NO :
-###  DEPARTMENT: 
+###  DATE: 05.03.2024
+###  NAME: Rahul Krishna.S
+###  ROLL NO :212223040162
+###  DEPARTMENT: CSE
 
 
 # EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR
@@ -119,14 +118,54 @@ The diagram below shows how the GPIO pins are connected to the 16 interrupt line
 
 ## STM 32 CUBE PROGRAM :
 
+~~~
+#include "main.h"
+#include "stdio.h"
+
+#if defined (_ICCARM) || defined (_ARMCC_VERSION)
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#elif defined(_GNUC_)
+
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#endif
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+		if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)==0)
+		{
+			printf("obstacle found\n");
+			HAL_Delay(500);
+		}
+		else
+		{
+			printf("obstacle not found\n");
+			HAL_Delay(500);
+		}
+}
+
+PUTCHAR_PROTOTYPE
+{
+
+  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
+
+  return ch;
+}
+~~~
 
 
 ## Output screen shots of serial port utility   :
  
- 
  ## Circuit board :
- 
- 
+ ![Screenshot 2024-03-07 062027](https://github.com/RahulKrishna05/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/162027231/3da02087-e8c8-4ac9-a11f-9395f1ec8a6b)
+## obstacle found:
+ ![Screenshot 2024-03-07 062053](https://github.com/RahulKrishna05/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/162027231/ddd5cac4-49df-41fc-bc50-e5d48d3e20bf)
+ ## circuit board:
+ ![Screenshot 2024-03-07 062111](https://github.com/RahulKrishna05/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/162027231/9206c208-abde-46c4-b463-dff0a5774eca)
+ ## obstacle not found:
+ ![Screenshot 2024-03-07 062133](https://github.com/RahulKrishna05/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/162027231/700df222-cdbd-46a4-9262-ae9ca9838f7b)
+
+
+
  
 ## Result :
 Interfacing a  IR SENSOR and interrupt is generated using external interrupt mode , visualized on serial port 
